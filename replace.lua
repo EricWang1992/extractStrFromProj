@@ -88,13 +88,14 @@ function replaceStr()
 			local startPos
 			local endPos
 			_, endPos = string.find(line, "messageContent=\"", 0)
-			startPos, _ = string.find(line, "paramsnum", 0)
+			startPos, e = string.find(line, "paramsnum", 0)
 			if endPos ~= nil and startPos ~= nil then
-				local ID = string.sub(line, 25, 29)
-				local pattern = string.sub(line, endPos, startPos-2)
-				-- print(ID .. "    " .. pattern)
+				local ID = string.sub(line, 25, 29)	-- messageID
+				local pattern = string.sub(line, endPos, startPos-2)		-- messageContent
+				local paramsnum = string.sub(line, e+3, e+3)
+				print(ID .. "    " .. pattern .. "  " .. "参数数量:" .. " " ..paramsnum)
 				--得到content去cpp项目里开始查找替换
-				findAllFilesByPath(cppDir, tonumber(ID), pattern)
+				-- findAllFilesByPath(cppDir, tonumber(ID), pattern)
 			end
 		end
 	end
